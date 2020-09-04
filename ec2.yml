@@ -1,0 +1,34 @@
+
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+          - ansible.yml
+  tasks:
+  - name: Launching ec2 Instance 
+    ec2:
+      key_name: "key17"
+      instance_type: "t2.micro"
+      image: "ami-07db4adf15d7719d1"
+      wait: "yes"
+      count: 3
+      instance_tags:
+              Name: webserver              
+      vpc_subnet_id: "subnet-0a5396a7727a70b99"
+      assign_public_ip: yes
+      region: "ap-south-1"
+      state: present
+      group_id: "sg-09cac312bf0dc55bc"
+      aws_access_key: "{{ user }}"
+      aws_secret_key: "{{ pass }}"
+    register: ec2
+    changed_when: false
+  - debug:
+     var: ec2
+
+
+
+
+
+      
+
+ 
